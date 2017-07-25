@@ -19,7 +19,7 @@ std::vector<int> VectorList::DefineSubVectors()
 	for (int i = 0; i < length; i++)
 	{
 
-		subVec.push_back(simple_rand() % 2);
+		subVec.push_back(simple_rand() % 6);
 
 	}
 
@@ -49,7 +49,7 @@ void VectorList::PickPoints()
 
 
 	//pick random x points
-	for (int i = 0; i < length/4; i++)
+	for (int i = 0; i < length/8; i++)
 	{
 		
 		pointsX.push_back(rand() % length);
@@ -59,7 +59,7 @@ void VectorList::PickPoints()
 
 
 	//pick random y points
-	for (int j = 0; j < length/4; j++)
+	for (int j = 0; j < length/8; j++)
 	{
 		
 		pointsY.push_back(rand() % length);
@@ -94,17 +94,27 @@ void VectorList::CorrectVect()
 
 			for (int pX = 0; pX < pointsX.size(); pX++)
 			{
-				dist = sqrt(    ((i-pointsX[pX]) * (i - pointsX[pX])) + ((j - pointsY[pX]) * (j - pointsY[pX]))	);
-				if (dist < lowestDist) 
+				if (j != pointsX[pX] && i != pointsY[pX])
 				{
-					lowestDist = dist;
-					mainVector[i][j] = mainVector[pointsX[pX]][pointsY[pX]];
-					
+
+					dist = sqrt(((i - pointsX[pX]) * (i - pointsX[pX])) + ((j - pointsY[pX]) * (j - pointsY[pX])));
+					if (dist < lowestDist)
+					{
+						lowestDist = dist;
+						mainVector[i][j] = mainVector[pointsX[pX]][pointsY[pX]];
+					}
 				}
 			}
 		}
 	}
+
+
+	for (int pX = 0; pX < pointsX.size(); pX++)
+	{
+		mainVector[pointsY[pX]][pointsX[pX]] = 9;
+	}
 }
+
 
 
 

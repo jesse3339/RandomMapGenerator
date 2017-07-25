@@ -27,9 +27,10 @@ int main()
 		}
 
 
-		/*window.clear();*/
+		window.clear();
 		//THIS IS WHERE WE DRAW THE MAP
 		sf::RectangleShape rect;								// initialize base rectangle
+		
 		rect.setSize(sf::Vector2f(4, 4));						// size of the rectangle
 
 		for (int x = 0; x < 160; x++)
@@ -45,13 +46,42 @@ int main()
 					rect.setPosition(sf::Vector2f(x * 5, y * 5));
 					rect.setFillColor(sf::Color::Green);
 					window.draw(rect);
-					
 					break;
+
 				case(1):										//if = 1 set it to blue
 					rect.setPosition(sf::Vector2f(x * 5, y * 5));
 					rect.setFillColor(sf::Color::Blue);
 					window.draw(rect);
-					
+					break;
+
+				case(2):										//if = 2 set it to red
+					rect.setPosition(sf::Vector2f(x * 5, y * 5));
+					rect.setFillColor(sf::Color::Green);
+					window.draw(rect);
+					break;
+
+				case(3):										//if = 2 set it to red
+					rect.setPosition(sf::Vector2f(x * 5, y * 5));
+					rect.setFillColor(sf::Color::Blue);
+					window.draw(rect);
+					break;
+
+				case(4):										//if = 2 set it to red
+					rect.setPosition(sf::Vector2f(x * 5, y * 5));
+					rect.setFillColor(sf::Color::Cyan);
+					window.draw(rect);
+					break;
+
+				case(5):										//if = 2 set it to red
+					rect.setPosition(sf::Vector2f(x * 5, y * 5));
+					rect.setFillColor(sf::Color::Magenta);
+					window.draw(rect);
+					break;
+
+				case(9):										//if = 2 set it to red
+					rect.setPosition(sf::Vector2f(x * 5, y * 5));
+					rect.setFillColor(sf::Color::Red);
+					window.draw(rect);
 					break;
 				default:
 					break;
