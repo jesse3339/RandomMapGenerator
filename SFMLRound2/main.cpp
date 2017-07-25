@@ -4,19 +4,17 @@
 #include <iostream>
 #include "data.h"
 #include "tile.h"
-#include "array.h"
+#include "Grid.h"
 
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 800), "MapGen"); //creates window
 
-
-
 	VectorList pointGrid; //create vector list
 
-	pointGrid.DefineSubVectors(23423);							//seed to define random ints
-	pointGrid.DefineVectors();									//puts subvectors into main vector
+	pointGrid.DefineSubVectors();							//seed to define random int
+	pointGrid.DefineVectors();									//puts sub-vectors into main vector
 	pointGrid.PickPoints();										//picks random points
 	std::cout << "Beginning map creation" << std::endl;			//to tell me when map creation begins
 	pointGrid.CorrectVect();									//fixes the map to have points related to points around them

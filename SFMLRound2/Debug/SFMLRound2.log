@@ -1,7 +1,6 @@
-﻿  array.cpp
-c:\users\jesse\documents\visual studio 2017\projects\sfmlround2\sfmlround2\array.h(13): warning C4244: 'initializing': conversion from 'time_t' to 'int', possible loss of data
-c:\users\jesse\documents\visual studio 2017\projects\sfmlround2\sfmlround2\array.cpp(45): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\jesse\documents\visual studio 2017\projects\sfmlround2\sfmlround2\array.cpp(88): warning C4018: '<': signed/unsigned mismatch
-c:\users\jesse\documents\visual studio 2017\projects\sfmlround2\sfmlround2\array.cpp(90): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+﻿  Grid.cpp
+c:\users\jesse\documents\visual studio 2017\projects\sfmlround2\sfmlround2\grid.cpp(48): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\jesse\documents\visual studio 2017\projects\sfmlround2\sfmlround2\grid.cpp(95): warning C4018: '<': signed/unsigned mismatch
+c:\users\jesse\documents\visual studio 2017\projects\sfmlround2\sfmlround2\grid.cpp(97): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   SFMLRound2.vcxproj -> C:\Users\Jesse\documents\visual studio 2017\Projects\SFMLRound2\Debug\SFMLRound2.exe
   SFMLRound2.vcxproj -> C:\Users\Jesse\documents\visual studio 2017\Projects\SFMLRound2\Debug\SFMLRound2.pdb (Partial PDB)
