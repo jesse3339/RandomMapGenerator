@@ -2,8 +2,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <iostream>
-#include "data.h"
-#include "tile.h"
 #include "Grid.h"
 
 
@@ -13,7 +11,7 @@ int main()
 
 	VectorList pointGrid; //create vector list
 
-	pointGrid.DefineSubVectors();							//seed to define random int
+	pointGrid.DefineSubVectors();								//seed to define random int
 	pointGrid.DefineVectors();									//puts sub-vectors into main vector
 	pointGrid.PickPoints();										//picks random points
 	std::cout << "Beginning map creation" << std::endl;			//to tell me when map creation begins
