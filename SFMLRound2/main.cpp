@@ -11,24 +11,15 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 800), "MapGen");
 
-
-
 	MapGenerator mapGen;
+
 	mapGen.SetUpPrimaryStructure();
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 5; i++)						//Wrap this up inside the function
 	{
 		mapGen.SetupNextStructure();
- 		//mapGen.FillPrimaryStructure();
 		std::cout << "step" << std::endl;
 	}
-	for (std::vector<int>::iterator it = mapGen.primaryStructure.begin(); it != mapGen.primaryStructure.end(); it++)
-	{
-		std::cout << *it << std::endl;
-	}
-	
 
-	/*std::cout << mapGen.primaryStructure.valueAt(2, 2) << std::endl;*/
-	
 
 	while (window.isOpen())
 	{
@@ -41,10 +32,9 @@ int main()
 
 		
 		window.clear();
-		//THIS IS WHERE WE DRAW THE MAP
-		sf::RectangleShape rect;								// initialize base rectangle
+		sf::RectangleShape rect;								
 		
-		rect.setSize(sf::Vector2f(9, 9));						// size of the rectangle
+		rect.setSize(sf::Vector2f(9, 9));						
 
 		for (int x = 0; x < mapGen.primaryStructure.width(); x++)
 		{
@@ -54,37 +44,37 @@ int main()
 
 				switch (pointOnGrid)
 				{
-				case(0):										//if = 1 set it to blue
+				case(0):										
 					rect.setPosition(sf::Vector2f(x * 10, y * 10));
 					rect.setFillColor(sf::Color::Blue);
 					window.draw(rect);
 					break;
 
-				case(1):										//if = 1 set it to blue
+				case(1):										
+					rect.setPosition(sf::Vector2f(x * 10, y * 10));
+					rect.setFillColor(sf::Color::Blue);
+					window.draw(rect);
+					break;
+
+				case(2):										
 					rect.setPosition(sf::Vector2f(x * 10, y * 10));
 					rect.setFillColor(sf::Color::Green);
 					window.draw(rect);
 					break;
 
-				case(2):										//if = 2 set it to red
+				case(3):										
 					rect.setPosition(sf::Vector2f(x * 10, y * 10));
 					rect.setFillColor(sf::Color::Blue);
 					window.draw(rect);
 					break;
 
-				case(3):										//if = 2 set it to red
-					rect.setPosition(sf::Vector2f(x * 10, y * 10));
-					rect.setFillColor(sf::Color::Blue);
-					window.draw(rect);
-					break;
-
-				case(4):										//if = 2 set it to red
+				case(4):										
 					rect.setPosition(sf::Vector2f(x * 10, y * 10));
 					rect.setFillColor(sf::Color::Green);
 					window.draw(rect);
 					break;
 
-				case(9):										//if = 2 set it to red
+				case(9):										
 					rect.setPosition(sf::Vector2f(x * 10, y * 10));
 					rect.setFillColor(sf::Color::Red);
 					window.draw(rect);

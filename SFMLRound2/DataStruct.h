@@ -44,7 +44,7 @@ template<typename T>
 inline void RectangleDataStructure<T>::InsertRowBefore(int y, T val) {
 	for (int it = 0; it < width_pr; it++)
 	{
-		data.insert(data.begin() + (width_pr * (y)), val);
+		data.insert(data.begin() + (width_pr * ((y)*2))-width_pr, val);
 	}
 	length_pr++;
 }
@@ -54,8 +54,8 @@ template<typename T>
 inline void RectangleDataStructure<T>::InsertColBefore(int x, T val) {
 	for (int it = 0; it < length_pr; it++)
 	{
-		data.insert(data.begin() + x + ((width_pr + 1) *(it)), val);
-
+		data.insert(data.begin() + ((x-1)*2) + (it * (width_pr +1)) +1 , val);
+		
 	}
 	width_pr++;
 }

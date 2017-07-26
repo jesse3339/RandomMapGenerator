@@ -1,12 +1,17 @@
 #pragma once
 #include "DataStruct.h"
+#include <random>
 
 class MapGenerator {
 public:
 	void SetUpPrimaryStructure();
 	void SetupNextStructure();
+	void SetColumnValues(int x);
+	void SetRowValues(int y);
+
+
 	void FillPrimaryStructure();
-	void DetermineNeighbors(int x, int y);
+	std::vector<int> DetermineNeighbors(int x, int y);
 
 	RectangleDataStructure<int> primaryStructure;
 
@@ -16,5 +21,6 @@ private:
 	int above;
 	int below;
 	RectangleDataStructure<int> secondaryStructure;
-
+	
+	
 };

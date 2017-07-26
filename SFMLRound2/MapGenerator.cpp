@@ -1,132 +1,175 @@
 #include "MapGenerator.h"
 #include <random>
+#include <time.h>
+#include <iostream>
+
+std::minstd_rand randDet;
 
 void MapGenerator::SetUpPrimaryStructure()
 {
-	primaryStructure.SetStructure(0, 2, 2);
-
-	//set different values for each corner
+	primaryStructure.SetStructure(0, 3, 3);
+	
+	//set initial values
 	primaryStructure.SetValueAt(0, 0, 1);
-	primaryStructure.SetValueAt(1, 0, 2);
-//	primaryStructure.SetValueAt(2, 0, 2);
-	primaryStructure.SetValueAt(0, 1, 4);
-	primaryStructure.SetValueAt(1, 1, 3);
-//	primaryStructure.SetValueAt(2, 1, 2);
-// 	primaryStructure.SetValueAt(0, 2, 2);
-// 	primaryStructure.SetValueAt(1, 2, 4);
-// 	primaryStructure.SetValueAt(2, 2, 4);
+	primaryStructure.SetValueAt(1, 0, 1);
+	primaryStructure.SetValueAt(2, 0, 1);
+	primaryStructure.SetValueAt(0, 1, 1);
+	primaryStructure.SetValueAt(1, 1, 2);
+	primaryStructure.SetValueAt(2, 1, 1);
+	primaryStructure.SetValueAt(0, 2, 1);
+	primaryStructure.SetValueAt(1, 2, 1);
+	primaryStructure.SetValueAt(2, 2, 1);
 }
 
 void MapGenerator::SetupNextStructure()
 {
 	secondaryStructure = primaryStructure;
 
-	for (int x = 0; x < primaryStructure.width(); x++)
+	for (int x = 1; x < primaryStructure.width(); x++)
 	{
-		if (x > 0) {
-			secondaryStructure.InsertColBefore(x, 9 );
-		}
+		secondaryStructure.InsertColBefore(x, 9 );
+		SetColumnValues((x*2) -1);
 	}
-	for (int y = 0; y < primaryStructure.length(); y++)
-	{
-		if (y > 0) {
-			secondaryStructure.InsertRowBefore(y, 9);
-		}
 
+	for (int y = 1; y < primaryStructure.length(); y++)
+	{
+		secondaryStructure.InsertRowBefore(y, 9);
+		SetRowValues((y*2) - 1);
 	}
 	primaryStructure = secondaryStructure;
 }
 
-void MapGenerator::FillPrimaryStructure()
+void MapGenerator::SetColumnValues(int x)
 {
-	for (int x = 0; x < primaryStructure.width() -1; x++)
+	for (int y = 0; y < secondaryStructure.length(); y++)
 	{
-		for (int y = 0; y < primaryStructure.length() -1; y++)
-		{
-			if (primaryStructure.valueAt(x, y) = 9)
-			{
-				DetermineNeighbors(x, y);		
-				std::minstd_rand simprand;
-				int decider = (simprand() % 4);
+		int left = secondaryStructure.valueAt(x - 1, y);
+		int right = secondaryStructure.valueAt(x + 1, y);
 
-				if ((right == left) && (above == below) && (left = above))
-				{
-					primaryStructure.SetValueAt(x, y, left);
-				}
-
-				else if ((right != left) && (above == 0 || below == 0))
-				{
-					if ((decider % 2) == 1)
-					{
-						primaryStructure.SetValueAt(x, y, right);
-					}
-					else
-					{
-						primaryStructure.SetValueAt(x, y, left);
-					}
-				}
-
-				else if ((above != below) && (right == 0 || left == 0))
-				{
-					if ((decider % 2) == 1)
-					{
-						primaryStructure.SetValueAt(x, y, above);
-					}
-					else
-					{
-						primaryStructure.SetValueAt(x, y, below);
-					}
-				}
-				else if (right == left)
-				{
-					primaryStructure.SetValueAt(x, y, left);
-				}
-				else if (above == below)
-				{
-					primaryStructure.SetValueAt(x, y, below);
-				}
-
-
-			}
+		if (left == right){
+			secondaryStructure.SetValueAt(x, y, right);
+		}
+		else{
+			secondaryStructure.SetValueAt(x, y, (randDet() % 2 + 1));
 		}
 	}
 }
 
-void MapGenerator::DetermineNeighbors(int x, int y)
+void MapGenerator::SetRowValues(int y)
 {
-	if (x != primaryStructure.width() - 2)
+	for (int x = 0; x < secondaryStructure.width(); x ++)
 	{
-		right = primaryStructure.valueAt(x + 1, y);
-	}
-	else
-	{
-		right = NULL;
-	}
-	
-	if (x != 0)
-	{
-		left = primaryStructure.valueAt(x - 1, y);
-	}
-	else
-	{
-		left = NULL;
-	}
-
-	if (y != 0)
-	{
-		above = primaryStructure.valueAt(x, y - 1);
-	}
-	else
-	{
-		above = NULL;
-	}
-	
-	if (y != primaryStructure.length() - 2)
-	{
-		below = primaryStructure.valueAt(x, y + 1);
-	}
-	else
-	{
-		left = NULL;
+		int below = secondaryStructure.valueAt(x, y + 1);
+		int above = secondaryStructure.valueAt(x, y -1);
+		if (above == below){
+			secondaryStructure.SetValueAt(x, y, below);
+		}
+		else{
+			secondaryStructure.SetValueAt(x, y, (randDet() % 2 + 1));
+		}
 	}
 }
+
+/////////////////////////////////////////////////////////////////
+//Following two functions do not work, nor are they implemented//
+/////////////////////////////////////////////////////////////////
+#pragma region OLD_CODE
+	void MapGenerator::FillPrimaryStructure()
+	{
+		std::minstd_rand simprand;
+		simprand.seed(12);
+		for (int x = 0; x < primaryStructure.width(); x++)
+		{
+			for (int y = 0; y < primaryStructure.length(); y++)
+			{
+				if (primaryStructure.valueAt(x, y) = 9) //maybe remove?
+				{
+					std::vector<int> nList = DetermineNeighbors(x, y);
+					int decider = (simprand() % 2) + 1;
+
+					int gCount = 0;
+					int wCount = 0;
+					for (std::vector<int>::iterator iter = nList.begin(); iter != nList.end(); iter++)
+					{
+						if (*iter = 1)
+						{
+							gCount++;
+						}
+						if (*iter = 2)
+						{
+							wCount++;
+						}
+					}
+					if (gCount > wCount)
+					{
+						primaryStructure.SetValueAt(x, y, 1);
+					}
+					if (wCount > gCount)
+					{
+						primaryStructure.SetValueAt(x, y, 2);
+					}
+					if (wCount == gCount)
+					{
+						primaryStructure.SetValueAt(x, y, decider);
+					}
+
+				}
+			}
+		}
+	}
+
+	std::vector < int > MapGenerator::DetermineNeighbors(int x, int y)
+	{
+		std::vector<int> neighborlist;
+
+		if ((x > 0) && (y > 0))
+		{
+			int nUpLeft = primaryStructure.valueAt(x - 1, y - 1);
+			neighborlist.push_back(nUpLeft);
+		}
+
+		if (y > 0)
+		{
+			int nUp = primaryStructure.valueAt(x, y - 1);
+			neighborlist.push_back(nUp);
+		}
+
+		if ((x < primaryStructure.width() - 1) && (y > 0))
+		{
+			int nUpRight = primaryStructure.valueAt(x + 1, y - 1);
+			neighborlist.push_back(nUpRight);
+		}
+		if (x > 0)
+		{
+			int nLeft = primaryStructure.valueAt(x - 1, y);
+			neighborlist.push_back(nLeft);
+		}
+		int nCenter = primaryStructure.valueAt(x, y);
+		neighborlist.push_back(nCenter);
+		if (x < primaryStructure.width() - 1)
+		{
+			int nRight = primaryStructure.valueAt(x + 1, y);
+			neighborlist.push_back(nRight);
+		}
+
+		if ((x > 0) && (y < primaryStructure.length() - 1))
+		{
+			int nLowLeft = primaryStructure.valueAt(x - 1, y + 1);
+			neighborlist.push_back(nLowLeft);
+		}
+
+		if (y < primaryStructure.length() - 1)
+		{
+			int nLow = primaryStructure.valueAt(x, y + 1);
+			neighborlist.push_back(nLow);
+		}
+
+		if ((x < primaryStructure.width() - 1) && (y < primaryStructure.length() - 1))
+		{
+			int nLowRight = primaryStructure.valueAt(x + 1, y + 1);
+			neighborlist.push_back(nLowRight);
+		}
+
+		return neighborlist;
+	}
+#pragma endregion OLD_CODE
