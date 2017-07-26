@@ -3,7 +3,7 @@
 
 void MapGenerator::SetUpPrimaryStructure()
 {
-	primaryStructure.SetStructure(0, 2);
+	primaryStructure.SetStructure(0, 2, 2);
 
 	//set different values for each corner
 	primaryStructure.SetValueAt(0, 0, 1);
@@ -19,32 +19,29 @@ void MapGenerator::SetUpPrimaryStructure()
 
 void MapGenerator::SetupNextStructure()
 {
-	secondaryStructure.SetStructure(9, primaryStructure.len() * 2 -1); //CONFIRM THIS IS CORRECT
-	
-	for (int x = 0; x < primaryStructure.len(); x++)
+	secondaryStructure = primaryStructure;
+
+	for (int x = 0; x < primaryStructure.width(); x++)
 	{
-		for (int y = 0; y < primaryStructure.len(); y++)
-		{
-			if (primaryStructure.valueAt(x, y) != 9)
-			{
-					secondaryStructure.SetValueAt(x * 2 , y * 2 , primaryStructure.valueAt(x, y));
-			}
-			if (x < primaryStructure.len() - 1 && y < primaryStructure.len() - 1)
-			{
-				secondaryStructure.SetValueAt((x * 2) + 1, (y * 2) + 1, 9);
-			}
-
-
+		if (x > 0) {
+			secondaryStructure.InsertColBefore(x, 9 );
 		}
+	}
+	for (int y = 0; y < primaryStructure.length(); y++)
+	{
+		if (y > 0) {
+			secondaryStructure.InsertRowBefore(y, 9);
+		}
+
 	}
 	primaryStructure = secondaryStructure;
 }
 
 void MapGenerator::FillPrimaryStructure()
 {
-	for (int x = 0; x < primaryStructure.len() -1; x++)
+	for (int x = 0; x < primaryStructure.width() -1; x++)
 	{
-		for (int y = 0; y < primaryStructure.len() -1; y++)
+		for (int y = 0; y < primaryStructure.length() -1; y++)
 		{
 			if (primaryStructure.valueAt(x, y) = 9)
 			{
@@ -97,7 +94,7 @@ void MapGenerator::FillPrimaryStructure()
 
 void MapGenerator::DetermineNeighbors(int x, int y)
 {
-	if (x != primaryStructure.len() - 2)
+	if (x != primaryStructure.width() - 2)
 	{
 		right = primaryStructure.valueAt(x + 1, y);
 	}
@@ -124,7 +121,7 @@ void MapGenerator::DetermineNeighbors(int x, int y)
 		above = NULL;
 	}
 	
-	if (x != primaryStructure.len() - 2)
+	if (y != primaryStructure.length() - 2)
 	{
 		below = primaryStructure.valueAt(x, y + 1);
 	}

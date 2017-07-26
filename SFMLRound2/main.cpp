@@ -15,7 +15,7 @@ int main()
 
 	MapGenerator mapGen;
 	mapGen.SetUpPrimaryStructure();
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		mapGen.SetupNextStructure();
  		//mapGen.FillPrimaryStructure();
@@ -46,9 +46,9 @@ int main()
 		
 		rect.setSize(sf::Vector2f(9, 9));						// size of the rectangle
 
-		for (int x = 0; x < mapGen.primaryStructure.len(); x++)
+		for (int x = 0; x < mapGen.primaryStructure.width(); x++)
 		{
-			for (int y = 0; y < mapGen.primaryStructure.len(); y++)
+			for (int y = 0; y < mapGen.primaryStructure.length(); y++)
 			{
 				int pointOnGrid = mapGen.primaryStructure.valueAt(x, y);	// gathers value of point to compare the value	
 

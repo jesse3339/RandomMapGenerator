@@ -8,13 +8,13 @@ public:
 	void FillPrimaryStructure();
 	void DetermineNeighbors(int x, int y);
 
-	SquareDataStructure<int> primaryStructure;
+	RectangleDataStructure<int> primaryStructure;
 
 private:
 	int right;
 	int left;
 	int above;
 	int below;
-	SquareDataStructure<int> secondaryStructure;
+	RectangleDataStructure<int> secondaryStructure;
 
 };
