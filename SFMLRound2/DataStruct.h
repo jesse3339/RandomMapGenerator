@@ -19,6 +19,7 @@ public:
 	iterator end() { return data.end(); }
 	const_iterator begin() const { return data.begin(); }
 	const_iterator end() const { return data.end(); }
+
 private:
 	std::vector<T> data;
 	int length_pr = 0;

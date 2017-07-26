@@ -97,7 +97,6 @@ void MapGenerator::FillPrimaryStructure()
 
 void MapGenerator::DetermineNeighbors(int x, int y)
 {
-	
 	if (x != primaryStructure.len() - 2)
 	{
 		right = primaryStructure.valueAt(x + 1, y);
@@ -106,7 +105,6 @@ void MapGenerator::DetermineNeighbors(int x, int y)
 	{
 		right = NULL;
 	}
-
 	
 	if (x != 0)
 	{
@@ -117,7 +115,6 @@ void MapGenerator::DetermineNeighbors(int x, int y)
 		left = NULL;
 	}
 
-	
 	if (y != 0)
 	{
 		above = primaryStructure.valueAt(x, y - 1);
@@ -126,7 +123,6 @@ void MapGenerator::DetermineNeighbors(int x, int y)
 	{
 		above = NULL;
 	}
-
 	
 	if (x != primaryStructure.len() - 2)
 	{
