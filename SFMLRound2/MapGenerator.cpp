@@ -17,10 +17,14 @@ void MapGenerator::SetUpPrimaryStructure()
 		cyan
 	};
 
-	std::vector<int> values =   {water, water, water, water,
-								 water, grass, sand, water,
-								 water, grass, cyan, water,
-								 water, water, water, water, };
+	std::vector<int> values =   {
+
+		water, water, water, water,
+		water, grass, sand, water,
+		water, grass, cyan, water,
+		water, water, water, water, 
+
+	};
 
 	primaryStructure.SetAllValues(values);
 }
@@ -45,17 +49,18 @@ void MapGenerator::SetupNextStructure()
 
 void MapGenerator::SetColumnValues(int x)
 {
-
 	for (int y = 0; y < secondaryStructure.length(); y++)
 	{
 		int left = secondaryStructure.valueAt(x - 1, y);
 		int right = secondaryStructure.valueAt(x + 1, y);
 
-		if (left == right){
+		if (left == right)
+		{
 			secondaryStructure.SetValueAt(x, y, right);
 		}
-		else{
 
+		else
+		{
 			int det = randDet() % 2 + 1;
 			if (det == 1)
 			{
@@ -65,22 +70,22 @@ void MapGenerator::SetColumnValues(int x)
 			{
 				secondaryStructure.SetValueAt(x, y, (right));
 			}
-
 		}
 	}
 }
 
 void MapGenerator::SetRowValues(int y)
 {
-
 	for (int x = 0; x < secondaryStructure.width(); x ++)
 	{
 		int below = secondaryStructure.valueAt(x, y + 1);
 		int above = secondaryStructure.valueAt(x, y -1);
-		if (above == below){
+		if (above == below)
+		{
 			secondaryStructure.SetValueAt(x, y, below);
 		}
-		else{
+		else
+		{
 			int det = randDet() % 2 + 1;
 			if (det == 1)
 			{
@@ -90,7 +95,6 @@ void MapGenerator::SetRowValues(int y)
 			{
 				secondaryStructure.SetValueAt(x, y, (above));
 			}
-
 		}
 	}
 }

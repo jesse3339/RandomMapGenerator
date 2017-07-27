@@ -39,7 +39,7 @@ int main()
 		window.clear();
 		sf::RectangleShape rect;								
 		float sizeOfTiles = 2;
-		float distanceBtwnTiles = 3;
+		float distanceBtwnTiles = 2.2;
 		rect.setSize(sf::Vector2f(sizeOfTiles, sizeOfTiles));						
 
 		for (int x = 0; x < mapGen.primaryStructure.width(); x++)

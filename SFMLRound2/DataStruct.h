@@ -10,8 +10,6 @@ public:
 	typedef typename std::vector<T>::const_iterator const_iterator;
 	RectangleDataStructure() {};
 
-
-
 	void SetValueAt(int x, int y, T val) { data[y*(width_pr) + x] = val; }
 	void InsertRowBefore(int y, T val);
 	void InsertColBefore(int x, T val);
@@ -37,8 +35,6 @@ private:
 
 
 };
-
-
 
 
 template<typename T>
