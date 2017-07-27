@@ -3,28 +3,32 @@
 #include <time.h>
 #include <iostream>
 
-std::minstd_rand randDet;
+
 
 void MapGenerator::SetUpPrimaryStructure()
 {
-	primaryStructure.SetStructure(0, 3, 3);
-	
-	//set initial values
-	primaryStructure.SetValueAt(0, 0, 1);
-	primaryStructure.SetValueAt(1, 0, 1);
-	primaryStructure.SetValueAt(2, 0, 1);
-	primaryStructure.SetValueAt(0, 1, 1);
-	primaryStructure.SetValueAt(1, 1, 2);
-	primaryStructure.SetValueAt(2, 1, 1);
-	primaryStructure.SetValueAt(0, 2, 1);
-	primaryStructure.SetValueAt(1, 2, 1);
-	primaryStructure.SetValueAt(2, 2, 1);
+	primaryStructure.SetStructure(0, 4, 4);
+
+	enum tileType{
+		blank, //0
+		water, 
+		grass, 
+		sand, 
+		cyan
+	};
+
+	std::vector<int> values =   {water, water, water, water,
+								 water, grass, sand, water,
+								 water, grass, cyan, water,
+								 water, water, water, water, };
+
+	primaryStructure.SetAllValues(values);
 }
 
 void MapGenerator::SetupNextStructure()
 {
 	secondaryStructure = primaryStructure;
-
+	setSeed();
 	for (int x = 1; x < primaryStructure.width(); x++)
 	{
 		secondaryStructure.InsertColBefore(x, 9 );
@@ -41,6 +45,7 @@ void MapGenerator::SetupNextStructure()
 
 void MapGenerator::SetColumnValues(int x)
 {
+
 	for (int y = 0; y < secondaryStructure.length(); y++)
 	{
 		int left = secondaryStructure.valueAt(x - 1, y);
@@ -50,13 +55,24 @@ void MapGenerator::SetColumnValues(int x)
 			secondaryStructure.SetValueAt(x, y, right);
 		}
 		else{
-			secondaryStructure.SetValueAt(x, y, (randDet() % 2 + 1));
+
+			int det = randDet() % 2 + 1;
+			if (det == 1)
+			{
+				secondaryStructure.SetValueAt(x, y, (left));
+			}
+			else
+			{
+				secondaryStructure.SetValueAt(x, y, (right));
+			}
+
 		}
 	}
 }
 
 void MapGenerator::SetRowValues(int y)
 {
+
 	for (int x = 0; x < secondaryStructure.width(); x ++)
 	{
 		int below = secondaryStructure.valueAt(x, y + 1);
@@ -65,7 +81,16 @@ void MapGenerator::SetRowValues(int y)
 			secondaryStructure.SetValueAt(x, y, below);
 		}
 		else{
-			secondaryStructure.SetValueAt(x, y, (randDet() % 2 + 1));
+			int det = randDet() % 2 + 1;
+			if (det == 1)
+			{
+				secondaryStructure.SetValueAt(x, y, (below));
+			}
+			else 
+			{
+				secondaryStructure.SetValueAt(x, y, (above));
+			}
+
 		}
 	}
 }

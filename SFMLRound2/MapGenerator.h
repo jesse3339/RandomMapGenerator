@@ -1,7 +1,7 @@
 #pragma once
 #include "DataStruct.h"
 #include <random>
-
+#include <time.h>
 class MapGenerator {
 public:
 	void SetUpPrimaryStructure();
@@ -16,10 +16,8 @@ public:
 	RectangleDataStructure<int> primaryStructure;
 
 private:
-	int right;
-	int left;
-	int above;
-	int below;
+	std::minstd_rand randDet;
+	void setSeed() {randDet.seed(time(NULL));};
 	RectangleDataStructure<int> secondaryStructure;
 	
 	

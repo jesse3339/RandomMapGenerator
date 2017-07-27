@@ -16,6 +16,7 @@ public:
 	void InsertRowBefore(int y, T val);
 	void InsertColBefore(int x, T val);
 	void SetStructure(T val, int l, int w) { data.resize((l*w), val); length_pr = l; width_pr = w; }
+	void SetAllValues(std::vector<T> vec) { data = vec; }
 
 	T valueAt(int x, int y) const { return data[y*(width_pr) + x]; }
 	T& valueAt(int x, int y) { return data[y*width_pr + x]; }

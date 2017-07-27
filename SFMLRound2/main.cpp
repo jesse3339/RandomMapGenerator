@@ -9,17 +9,22 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 800), "MapGen");
+	sf::RenderWindow window(sf::VideoMode(1600, 1000), "MapGen");
 
 	MapGenerator mapGen;
-
 	mapGen.SetUpPrimaryStructure();
-	for (int i = 0; i < 5; i++)						//Wrap this up inside the function
+
+	int loopCount;
+	std::cout << "Please enter the amount of loops (Preferably less than 7): ";
+	std::cin >> loopCount;
+
+	for (int i = 0; i < loopCount; i++)						//TODO Wrap this up inside the function
 	{
 		mapGen.SetupNextStructure();
 		std::cout << "step" << std::endl;
 	}
 
+	std::cout << "The total size of the map is: " << mapGen.primaryStructure.size()  << "square tiles" << std::endl;
 
 	while (window.isOpen())
 	{
@@ -33,8 +38,9 @@ int main()
 		
 		window.clear();
 		sf::RectangleShape rect;								
-		
-		rect.setSize(sf::Vector2f(9, 9));						
+		float sizeOfTiles = 2;
+		float distanceBtwnTiles = 3;
+		rect.setSize(sf::Vector2f(sizeOfTiles, sizeOfTiles));						
 
 		for (int x = 0; x < mapGen.primaryStructure.width(); x++)
 		{
@@ -51,26 +57,26 @@ int main()
 					break;
 
 				case(1):										
-					rect.setPosition(sf::Vector2f(x * 10, y * 10));
+					rect.setPosition(sf::Vector2f(x * distanceBtwnTiles, y * distanceBtwnTiles));
 					rect.setFillColor(sf::Color::Blue);
 					window.draw(rect);
 					break;
 
 				case(2):										
-					rect.setPosition(sf::Vector2f(x * 10, y * 10));
+					rect.setPosition(sf::Vector2f(x * distanceBtwnTiles, y * distanceBtwnTiles));
 					rect.setFillColor(sf::Color::Green);
 					window.draw(rect);
 					break;
 
 				case(3):										
-					rect.setPosition(sf::Vector2f(x * 10, y * 10));
-					rect.setFillColor(sf::Color::Blue);
+					rect.setPosition(sf::Vector2f(x * distanceBtwnTiles, y * distanceBtwnTiles));
+					rect.setFillColor(sf::Color::Yellow);
 					window.draw(rect);
 					break;
 
 				case(4):										
-					rect.setPosition(sf::Vector2f(x * 10, y * 10));
-					rect.setFillColor(sf::Color::Green);
+					rect.setPosition(sf::Vector2f(x * distanceBtwnTiles, y * distanceBtwnTiles));
+					rect.setFillColor(sf::Color::Cyan);
 					window.draw(rect);
 					break;
 
