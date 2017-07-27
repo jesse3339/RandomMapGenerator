@@ -1,7 +1,7 @@
-# RandomMapGenerator
+# RandomMapGenerator 
 Creates randomly generated 2D tile maps using the SFML library
 
-![Screenshot][https://gyazo.com/1dd62e937f89b0df29fc48ff9766d738]
+![ScreenShot](https://gyazo.com/7ad2573ea5ca88506c138547cf41a1a4)
 
 
 
